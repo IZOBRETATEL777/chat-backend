@@ -1,0 +1,6 @@
+jwt:
+  secret-key: MY_SECRET_KEY
+server:
+  port:
+    8081
+
