@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+
+  mysql:
+   container_name: chat-db
+   image: mysql/mysql-server
+   environment:
+     MYSQL_DATABASE: Chat
+     MYSQL_ROOT_PASSWORD: 12345678
+   ports:
+     - "3306:3306"
+   restart: always
+
+  app:
+    restart: always
+    build: ./app
+    working_dir: /app
+    volumes:
+      - ./app:/app
+      - ~/.m2:/root/.m2
+      - ~/.gradle:/root/gradle
+    expose:
+      - "8081"
+    ports:
+      - "8081:8081"
+    command: ./gradlew clean bootRun --stacktrace
+    depends_on:
+      - mysql
+ 
