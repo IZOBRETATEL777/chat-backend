@@ -1,7 +1,7 @@
 package com.izobretatel777.chat.controller;
 
-import com.izobretatel777.chat.model.JwtRequest;
-import com.izobretatel777.chat.model.JwtResponse;
+import com.izobretatel777.chat.dto.JwtRequest;
+import com.izobretatel777.chat.dto.JwtResponse;
 import com.izobretatel777.chat.security.JwtUtil;
 import com.izobretatel777.chat.service.JwtUserDetailsService;
 import lombok.RequiredArgsConstructor;

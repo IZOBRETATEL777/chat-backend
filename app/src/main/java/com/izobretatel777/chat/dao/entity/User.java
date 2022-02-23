@@ -1,4 +1,4 @@
-package com.izobretatel777.chat.model;
+package com.izobretatel777.chat.dao.entity;
 
 import lombok.Data;
 

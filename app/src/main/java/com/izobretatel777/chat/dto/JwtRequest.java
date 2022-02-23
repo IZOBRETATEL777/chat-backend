@@ -1,4 +1,4 @@
-package com.izobretatel777.chat.model;
+package com.izobretatel777.chat.dto;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -8,6 +8,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class JwtResponse {
-    String token;
+public class JwtRequest {
+    String username;
+    String password;
 }
