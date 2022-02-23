@@ -8,6 +8,8 @@ services:
    environment:
      MYSQL_DATABASE: Chat
      MYSQL_ROOT_PASSWORD: 12345678
+   expose:
+     - "3306"
    ports:
      - "3306:3306"
    restart: always

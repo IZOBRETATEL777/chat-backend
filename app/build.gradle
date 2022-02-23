@@ -1,6 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.6.3'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id "org.liquibase.gradle" version "2.1.1"
 	id 'java'
 }
 
@@ -21,6 +22,7 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '2.6.3'
 	compileOnly 'org.projectlombok:lombok'
 	compileOnly 'org.mapstruct:mapstruct:1.4.2.Final'
 	runtimeOnly 'mysql:mysql-connector-java'
@@ -28,6 +30,8 @@ dependencies {
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.6'
+	implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+	implementation group: 'org.liquibase', name: 'liquibase-core', version: '4.7.1'
 
 }
 
