@@ -20,6 +20,6 @@ spring:
 
     liquibase:
       enabled: true
-      drop-first: false
+      drop-first: FALSE
       database-change-log-table: DATABASECHANGELOG
       database-change-log-lock-table: DATABASECHANGELOGLOCK
