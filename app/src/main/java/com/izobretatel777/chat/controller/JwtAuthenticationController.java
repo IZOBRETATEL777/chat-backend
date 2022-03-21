@@ -4,6 +4,7 @@ import com.izobretatel777.chat.dto.JwtRequest;
 import com.izobretatel777.chat.dto.JwtResponse;
 import com.izobretatel777.chat.security.JwtUtil;
 import com.izobretatel777.chat.service.JwtUserDetailsService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +23,7 @@ public class JwtAuthenticationController {
     private final JwtUserDetailsService jwtUserDetailsService;
 
     @PostMapping
+    @Operation(summary = "Login (get JWT token)")
     public ResponseEntity<?> authenticate(@RequestBody JwtRequest jwtRequest){
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
         var userDetails = jwtUserDetailsService.loadUserByUsername(jwtRequest.getUsername());
