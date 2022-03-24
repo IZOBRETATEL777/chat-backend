@@ -1,4 +1,4 @@
 package com.izobretatel777.chat.dto;
 
-public class MessageDto {
+public class MessageResponseDto {
 }
