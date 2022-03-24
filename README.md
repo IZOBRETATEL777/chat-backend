@@ -7,3 +7,6 @@ http://localhost:8081/chat/v3/api-docs
 Run Docker with MySQL:
 docker run -d --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=12345678 mysql
 
+Set enviromental variable. For example:
+-D-DSPRING_DATASOURCE_URL="jdbc:mysql://localhost:3306/chat-db"
+
