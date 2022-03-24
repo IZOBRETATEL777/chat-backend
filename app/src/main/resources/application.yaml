@@ -12,14 +12,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 12345678
-    jpa:
-      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-      show-sql: true
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
     hibernate:
       ddl-auto: update
-
-    liquibase:
-      enabled: true
-      drop-first: FALSE
-      database-change-log-table: DATABASECHANGELOG
-      database-change-log-lock-table: DATABASECHANGELOGLOCK

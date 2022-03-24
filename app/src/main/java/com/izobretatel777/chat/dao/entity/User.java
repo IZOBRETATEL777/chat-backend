@@ -13,19 +13,19 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class User {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "login")
+    @Column(name = "login", nullable = false, unique = true)
     private String login;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "active")
+    @Column(name = "active", nullable = false)
     private boolean active;
 
-    @Column(name = "role")
+    @Column(name = "role", nullable = false)
     private String role;
 }
