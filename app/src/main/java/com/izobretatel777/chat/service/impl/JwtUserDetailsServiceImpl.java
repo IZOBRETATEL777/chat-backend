@@ -22,6 +22,8 @@ public class JwtUserDetailsServiceImpl implements JwtUserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         com.izobretatel777.chat.dao.entity.User user = userRepo.findByLogin(username);
+        if (user == null)
+            user = userRepo.findByPhoneNumber(username);
         if (user != null){
             Set<GrantedAuthority> authorities = new HashSet<>();
             authorities.add(new SimpleGrantedAuthority(user.getRole()));

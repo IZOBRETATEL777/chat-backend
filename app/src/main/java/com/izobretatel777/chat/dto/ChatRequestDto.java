@@ -6,15 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-@Data
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserResponseDto {
-    Long id;
-    String login;
-    String name;
-    String surname;
-    String phoneNumber;
-    String role;
+public class ChatRequestDto {
+    String title;
+    List<Long> usersIds;
 }
