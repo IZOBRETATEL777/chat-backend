@@ -1,6 +1,5 @@
 package com.izobretatel777.chat.controller;
 
-import com.izobretatel777.chat.dto.MessageRequestDto;
 import com.izobretatel777.chat.dto.MessageResponseDto;
 import com.izobretatel777.chat.service.MessageService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "message", params = "chatId")
+@RequestMapping(value = "messages", params = "chatId")
 @RequiredArgsConstructor
 public class MessengerController {
     private final MessageService messageService;
