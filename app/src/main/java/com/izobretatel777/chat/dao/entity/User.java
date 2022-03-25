@@ -47,7 +47,10 @@ public class User {
     List<Chat> chatList = new ArrayList<>();
 
     @OneToMany(mappedBy = "author")
-    List<Message> messages = new ArrayList<>();;
+    List<Message> messages = new ArrayList<>();
+
+    @OneToMany(mappedBy = "owner")
+    List<Contact> contacts = new ArrayList<>();
 
     @ManyToMany(mappedBy = "users")
     List<Chat> chats = new ArrayList<>();
