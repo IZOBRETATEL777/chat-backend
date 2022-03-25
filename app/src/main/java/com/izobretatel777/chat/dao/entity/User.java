@@ -28,6 +28,15 @@ public class User {
     @Column(name = "password", nullable = false)
     String password;
 
+    @Column(name = "name")
+    String name;
+
+    @Column(name = "surname")
+    String surname;
+
+    @Column(name = "phone_number")
+    String phoneNumber;
+
     @Column(name = "active", nullable = false, columnDefinition = "boolean default true")
     boolean active = true;
 
