@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -41,7 +42,8 @@ public class MessageServiceImpl implements MessageService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         User user = userRepo.findByLogin(currentPrincipalName);
-        Message message = Message.builder().chat(chatRepo.getById(messageRequestDto.getChatId())).author(user).content(messageRequestDto.getContent()).build();
+        Message message = Message.builder().chat(chatRepo.getById(messageRequestDto.getChatId())).author(user)
+                .content(messageRequestDto.getContent()).creationTime(new Date(System.currentTimeMillis())).build();
         return messageRepo.save(message).getId();
     }
 

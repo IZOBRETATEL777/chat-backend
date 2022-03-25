@@ -31,13 +31,6 @@ public class MessengerController {
         return messageService.getMessageById(chatId, messageId);
     }
 
-    @PostMapping
-    @PreAuthorize("hasAuthority('USER')")
-    @Operation(summary = "Create message for chat", security = @SecurityRequirement(name = "bearerAuth"))
-    long createMessage(@RequestBody MessageRequestDto messageRequestDto) {
-        return messageService.createMessage(messageRequestDto);
-    }
-
     @DeleteMapping("/{messageId}")
     @PreAuthorize("hasAuthority('USER')")
     @Operation(summary = "Delete message from chat", security = @SecurityRequirement(name = "bearerAuth"))
