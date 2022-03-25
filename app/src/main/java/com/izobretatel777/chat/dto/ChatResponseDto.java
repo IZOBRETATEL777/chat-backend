@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ChatResponseDto {
+    String title;
     List<Long> usersIds;
     List<Long> messagesIds;
 }

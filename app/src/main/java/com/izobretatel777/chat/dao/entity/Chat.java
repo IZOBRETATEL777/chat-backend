@@ -1,9 +1,6 @@
 package com.izobretatel777.chat.dao.entity;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
@@ -16,11 +13,19 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
 public class Chat {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
+    @Column(name = "title", nullable = false)
+    String title;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    User owner;
 
     @OneToMany(mappedBy = "chat")
     List<Message> messages = new ArrayList<>();

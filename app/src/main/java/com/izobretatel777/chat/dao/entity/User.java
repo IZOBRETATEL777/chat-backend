@@ -34,6 +34,9 @@ public class User {
     @Column(name = "role", nullable = false, columnDefinition = "varchar(10) default 'USER'")
     String role = "USER";
 
+    @OneToMany(mappedBy = "owner")
+    List<Chat> chatList = new ArrayList<>();
+
     @OneToMany(mappedBy = "author")
     List<Message> messages = new ArrayList<>();;
 

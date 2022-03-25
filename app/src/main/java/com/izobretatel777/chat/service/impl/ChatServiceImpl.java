@@ -46,12 +46,12 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public Long createChat(ChatRequestDto chatRequestDto) {
-        Chat chat = new Chat();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         User currentUser = userRepo.findByLogin(currentPrincipalName);
+        Chat chat = Chat.builder().title(chatRequestDto.getTitle()).owner(currentUser)
+                .users(userRepo.findAllById(chatRequestDto.getUsersIds())).build();
         chat.getUsers().add(currentUser);
-        chat.getUsers().addAll(userRepo.findAllById(chatRequestDto.getUsersIds()));
         return chatRepo.save(chat).getId();
     }
 
@@ -61,7 +61,7 @@ public class ChatServiceImpl implements ChatService {
         String currentPrincipalName = authentication.getName();
         User user = userRepo.findByLogin(currentPrincipalName);
         Optional<Chat> chatToDelete = chatRepo.findById(id);
-        if (chatToDelete.isPresent() && chatToDelete.get().getUsers().contains(user)) {
+        if (chatToDelete.isPresent() && chatToDelete.get().getOwner().equals(user)) {
             chatRepo.delete(chatToDelete.get());
         }
     }
