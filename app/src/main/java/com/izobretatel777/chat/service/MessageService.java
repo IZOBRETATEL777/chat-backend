@@ -10,4 +10,5 @@ public interface MessageService {
     MessageResponseDto getMessageById(Long chatId, Long messageId);
     Long createMessage(MessageRequestDto messageRequestDto);
     void deleteMessageById(Long chatId, Long messageId);
+    void updateMessageStatus(Long chatId, Long messageId);
 }

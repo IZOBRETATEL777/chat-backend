@@ -44,4 +44,11 @@ public class MessengerController {
     void deleteMessageById(@RequestParam long chatId, @PathVariable long messageId) {
         messageService.deleteMessageById(chatId, messageId);
     }
+
+    @PatchMapping("/{messageId}")
+    @PreAuthorize("hasAuthority('USER')")
+    @Operation(summary = "Update message status to 'delivered'", security = @SecurityRequirement(name = "bearerAuth"))
+    void updateMessageStatus(@RequestParam long chatId, @PathVariable long messageId){
+        messageService.updateMessageStatus(chatId, messageId);
+    }
 }

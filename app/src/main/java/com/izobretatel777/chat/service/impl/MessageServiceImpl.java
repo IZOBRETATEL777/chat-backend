@@ -54,4 +54,16 @@ public class MessageServiceImpl implements MessageService {
         if (user == message.getAuthor())
             messageRepo.delete(message);
     }
+
+    @Override
+    public void updateMessageStatus(Long chatId, Long messageId) {
+        Message message = messageRepo.getMessageByChat_IdAndId(chatId, messageId);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        User user = userRepo.findByLogin(currentPrincipalName);
+        if (user == message.getAuthor()) {
+            message.setDelivered(true);
+            messageRepo.save(message);
+        }
+    }
 }
