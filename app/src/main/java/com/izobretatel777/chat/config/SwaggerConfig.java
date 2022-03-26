@@ -20,6 +20,6 @@ public class SwaggerConfig {
                         .title(":Chat! OpenApi reference")
                         .version("V1.0")
                         .description("API documentation for :Chat!")
-                        .license(new License().name("MIT").url("http://springdoc.org")));
+                        .license(new License().name("Licence").url("http://springdoc.org")));
     }
 }

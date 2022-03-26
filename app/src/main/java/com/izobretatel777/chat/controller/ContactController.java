@@ -22,28 +22,44 @@ public class ContactController {
 
     @GetMapping()
     @PreAuthorize("hasAuthority('USER')")
-    @Operation(summary = "Get all contact ids for current user", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(
+            summary = "Get all Contact IDs",
+            description = "Get all Contact IDs for current user",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
     List<Long> getContacts() {
         return contactService.getContacts();
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('USER')")
-    @Operation(summary = "Get info about contact by id", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(
+            summary = "Get info about a Contact",
+            description = "Get info about a Contact by its ID. User should poses this contact",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
     ContactResponseDto getChatById(@PathVariable long id) {
         return contactService.getContactById(id);
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('USER')")
-    @Operation(summary = "Create new contact", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(
+            summary = "Create a new Contact",
+            description = "Create a new Contact with the user whose ID in requestDTO",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
     long createChat(@RequestBody ContactRequestDto contactRequestDto) {
         return contactService.createContact(contactRequestDto);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('USER')")
-    @Operation(summary = "Delete contact", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(
+            summary = "Delete a Contact",
+            description = "Delete a Contact by its ID. User should poses this contact",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
     void deleteChatById(@PathVariable long id) {
         contactService.deleteContactById(id);
     }

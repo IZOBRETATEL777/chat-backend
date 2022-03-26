@@ -22,7 +22,11 @@ public class SendMessageController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('USER')")
-    @Operation(summary = "Send message", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(
+            summary = "Send a message",
+            description = "Create and send a Message from current user",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
     long createMessage(@RequestBody MessageRequestDto messageRequestDto) {
         return messageService.createMessage(messageRequestDto);
     }

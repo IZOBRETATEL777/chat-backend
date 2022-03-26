@@ -21,28 +21,44 @@ public class ChatController {
 
     @GetMapping()
     @PreAuthorize("hasAuthority('USER')")
-    @Operation(summary = "Get all chat ids for current user", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(
+            summary = "Get all Chat ids",
+            description = "Get all Chat ids for current user",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
     List<Long> getChatsIds() {
         return chatService.getChats();
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('USER')")
-    @Operation(summary = "Get info about current chat", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(
+            summary = "Get info a Chat",
+            description = "Get info about a Chat by its ID. User should be a member of that Chat",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
     ChatResponseDto getChatById(@PathVariable long id) {
         return chatService.getChatById(id);
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('USER')")
-    @Operation(summary = "Create a new chat. Do not add current user in requestDto", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(
+            summary = "Create a new chat",
+            description = "Create a new chat with user(s) in requestDto. Do not add current user in requestDto!",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
     long createChat(@RequestBody ChatRequestDto chatRequestDto) {
         return chatService.createChat(chatRequestDto);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('USER')")
-    @Operation(summary = "Delete chat", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(
+            summary = "Delete a Chat",
+            description = "Delete a Chat by it ID. User should be a member of that Chat",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
     void deleteChatById(@PathVariable long id) {
         chatService.deleteChatById(id);
     }

@@ -27,7 +27,10 @@ public class JwtAuthenticationController {
     private final KeyService keyService;
 
     @PostMapping
-    @Operation(summary = "Login (get JWT token)")
+    @Operation(
+            summary = "Login",
+            description = "Get JWT token and encryption/decryption key for messages"
+    )
     public ResponseEntity<?> authenticate(@RequestBody JwtRequest jwtRequest){
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
         var userDetails = jwtUserDetailsService.loadUserByUsername(jwtRequest.getUsername());
