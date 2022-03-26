@@ -27,6 +27,14 @@ public class KeyServiceImpl implements KeyService {
     }
 
     @Override
+    public Key updateKeyByLogin(String login) {
+        Key key = keyRepo.findByUserLogin(login);
+        key.setValue(RandomStringUtils.randomAlphabetic(10));
+        keyRepo.save(key);
+        return key;
+    }
+
+    @Override
     public String encrypt(String message, String key) {
         String res = "";
         message = message.toUpperCase();
@@ -39,6 +47,7 @@ public class KeyServiceImpl implements KeyService {
         return res;
     }
 
+    @Override
     public String decrypt(String message, String key) {
         String res = "";
         message = message.toUpperCase();

@@ -30,7 +30,7 @@ public class JwtAuthenticationController {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
         var userDetails = jwtUserDetailsService.loadUserByUsername(jwtRequest.getUsername());
         var token = jwtUtil.generateToken(userDetails);
-        var decryptionKey = keyService.getKeyByLogin(userDetails.getUsername());
+        var decryptionKey = keyService.updateKeyByLogin(userDetails.getUsername());
         return ResponseEntity.ok(JwtResponse.builder().token(token).decryptionKey(decryptionKey.getValue()).build());
     }
 }
