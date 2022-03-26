@@ -62,16 +62,5 @@ public class UserController {
     public void deleteUserById(@PathVariable long id){
         userService.deleteUserById(id);
     }
-
-    @PostMapping("register")
-    @PreAuthorize("hasAuthority('APP')")
-    @Operation(
-            summary = "Register",
-            description = "Save a new User (register). Only for APPs (client application).",
-            security = @SecurityRequirement(name = "bearerAuth")
-    )
-    public long saveUser(@RequestBody UserRequestDto userRequestDto){
-        return userService.saveUser(userRequestDto);
-    }
 }
 

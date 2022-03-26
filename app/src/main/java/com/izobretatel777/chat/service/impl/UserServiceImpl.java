@@ -48,13 +48,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Long saveUser(UserRequestDto userRequestDto) {
+    public boolean saveUser(UserRequestDto userRequestDto) {
         User user = new User();
         user.setLogin(userRequestDto.getLogin());
         user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
         user.setActive(false);
         user.setKey(keyService.generateKey());
-        return userEntityRepository.save(user).getId();
+        if (userEntityRepository.findByLogin(userRequestDto.getLogin()) != null)
+            return false;
+        userEntityRepository.save(user);
+        return true;
     }
 
     @Override
