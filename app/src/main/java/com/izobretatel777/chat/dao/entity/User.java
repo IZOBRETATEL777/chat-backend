@@ -37,6 +37,9 @@ public class User {
     @Column(name = "phone_number")
     String phoneNumber;
 
+    @Column(name = "OTP")
+    String otp;
+
     @Column(name = "active", nullable = false, columnDefinition = "boolean default true")
     boolean active = true;
 

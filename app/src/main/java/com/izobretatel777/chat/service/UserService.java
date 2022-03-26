@@ -9,6 +9,7 @@ public interface UserService {
     List<UserResponseDto> getUsers();
     UserResponseDto getUserById(Long id);
     Long saveUser(UserRequestDto UserRequestDto);
+    boolean activateUserByOtp(String otp);
     void deleteUserById(Long id);
     UserResponseDto getUser();
 }

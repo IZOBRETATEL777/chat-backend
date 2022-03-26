@@ -52,9 +52,19 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setLogin(userRequestDto.getLogin());
         user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
-        user.setActive(true);
+        user.setActive(false);
         user.setKey(keyService.generateKey());
         return userEntityRepository.save(user).getId();
+    }
+
+    @Override
+    public boolean activateUserByOtp(String otp) {
+        User user = userEntityRepository.findByOtp(otp);
+        if (user == null || user.isActive())
+            return false;
+        user.setActive(true);
+        userEntityRepository.save(user);
+        return true;
     }
 
     @Override
