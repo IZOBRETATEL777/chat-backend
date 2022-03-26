@@ -38,7 +38,7 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public GroupedOpenApi UserManagement() {
+    public GroupedOpenApi UserManagementAPI() {
         return GroupedOpenApi.builder()
                 .group("User management API")
                 .pathsToMatch(
@@ -52,7 +52,7 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public GroupedOpenApi LoginRegistration() {
+    public GroupedOpenApi LoginRegistrationAPI() {
         return GroupedOpenApi.builder()
                 .group("Login and Registration API")
                 .pathsToMatch(
