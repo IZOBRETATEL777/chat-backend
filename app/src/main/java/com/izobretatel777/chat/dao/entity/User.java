@@ -59,6 +59,6 @@ public class User {
     List<Chat> chats = new ArrayList<>();
 
     @OneToOne
-    @JoinColumn(name = "key_id", referencedColumnName = "id")
+    @JoinColumn(name = "key_id", referencedColumnName = "id", nullable = false)
     Key key;
 }

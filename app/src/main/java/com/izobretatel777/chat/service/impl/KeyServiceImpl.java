@@ -22,8 +22,8 @@ public class KeyServiceImpl implements KeyService {
     }
 
     @Override
-    public Key getKeyByLogin(String login) {
-        return keyRepo.findByUserLogin(login);
+    public Key getKeyByUserId(Long id) {
+        return keyRepo.findKeyByUserId(id);
     }
 
     @Override
@@ -35,27 +35,27 @@ public class KeyServiceImpl implements KeyService {
     }
 
     @Override
-    public String encrypt(String message, String key) {
+    public String encrypt(String message, Key key) {
         String res = "";
         message = message.toUpperCase();
         for (int i = 0, j = 0; i < message.length(); i++) {
             char c = message.charAt(i);
             if (c < 'A' || c > 'Z') continue;
-            res += (char)((c + key.charAt(j) - 2 * 'A') % 26 + 'A');
-            j = ++j % key.length();
+            res += (char)((c + key.getValue().charAt(j) - 2 * 'A') % 26 + 'A');
+            j = ++j % key.getValue().length();
         }
         return res;
     }
 
     @Override
-    public String decrypt(String message, String key) {
+    public String decrypt(String message, Key key) {
         String res = "";
         message = message.toUpperCase();
         for (int i = 0, j = 0; i < message.length(); i++) {
             char c = message.charAt(i);
             if (c < 'A' || c > 'Z') continue;
-            res += (char)((c - key.charAt(j) + 26) % 26 + 'A');
-            j = ++j % key.length();
+            res += (char)((c - key.getValue().charAt(j) + 26) % 26 + 'A');
+            j = ++j % key.getValue().length();
         }
         return res;
     }

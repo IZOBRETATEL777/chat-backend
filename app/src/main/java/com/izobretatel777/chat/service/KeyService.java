@@ -4,8 +4,8 @@ import com.izobretatel777.chat.dao.entity.Key;
 
 public interface KeyService {
     Key generateKey();
-    Key getKeyByLogin(String login);
+    Key getKeyByUserId(Long id);
     Key updateKeyByLogin(String login);
-    String encrypt(String key, String message);
-    String decrypt(String key, String message);
+    String encrypt(String message, Key key);
+    String decrypt(String message, Key key);
 }
