@@ -4,6 +4,7 @@ import com.izobretatel777.chat.dto.MessageRequestDto;
 import com.izobretatel777.chat.service.MessageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "send")
+@Tag(name = "Send message", description = "Controller for sending messages")
 @RequiredArgsConstructor
 public class SendMessageController {
 

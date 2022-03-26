@@ -5,6 +5,7 @@ import com.izobretatel777.chat.dto.UserResponseDto;
 import com.izobretatel777.chat.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("users")
+@Tag(name = "Users", description = "Controller for CRUD manipulations on users. Mostly for admins and clients (apps)")
 @RequiredArgsConstructor
 public class UserController {
 

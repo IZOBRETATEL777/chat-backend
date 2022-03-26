@@ -6,6 +6,7 @@ import com.izobretatel777.chat.security.JwtUtil;
 import com.izobretatel777.chat.service.JwtUserDetailsService;
 import com.izobretatel777.chat.service.KeyService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/authenticate")
+@Tag(name = "Authentication", description = "Controller for authentication")
 @RequiredArgsConstructor
 public class JwtAuthenticationController {
     private final AuthenticationManager authenticationManager;

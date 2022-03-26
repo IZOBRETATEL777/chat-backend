@@ -4,6 +4,7 @@ import com.izobretatel777.chat.dto.MessageResponseDto;
 import com.izobretatel777.chat.service.MessageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "messages", params = "chatId")
+@Tag(name = "Message management", description = "Controller for managing messages. Chat id is required as parameter")
 @RequiredArgsConstructor
 public class MessengerController {
     private final MessageService messageService;

@@ -5,6 +5,7 @@ import com.izobretatel777.chat.dto.ContactResponseDto;
 import com.izobretatel777.chat.service.ContactService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("contacts")
+@Tag(name = "Contacts", description = "Controller for CRUD manipulations on contacts")
 @RequiredArgsConstructor
 public class ContactController {
 
