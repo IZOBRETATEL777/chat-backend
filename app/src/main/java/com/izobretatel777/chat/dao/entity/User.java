@@ -52,6 +52,9 @@ public class User {
     @OneToMany(mappedBy = "owner")
     List<Contact> contacts = new ArrayList<>();
 
+    @OneToMany(mappedBy = "userId")
+    List<Contact> friends = new ArrayList<>();
+
     @ManyToMany(mappedBy = "users")
     List<Chat> chats = new ArrayList<>();
 }

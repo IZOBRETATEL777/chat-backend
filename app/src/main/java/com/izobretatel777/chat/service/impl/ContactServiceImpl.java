@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -48,10 +49,14 @@ public class ContactServiceImpl implements ContactService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         User currentUser = userRepo.findByLogin(currentPrincipalName);
-        Contact contact = Contact.builder().login(contactRequestDto.getLogin())
-                .name(contactRequestDto.getName()).surname(contactRequestDto.getSurname())
-                .phoneNumber(contactRequestDto.getPhoneNumber()).owner(currentUser).build();
-        return contactRepo.save(contact).getId();
+        Optional<User> friend = userRepo.findById(contactRequestDto.getUserId());
+        if (friend.isPresent()) {
+            Contact contact = Contact.builder().owner(currentUser).userId(friend.get()).build();
+            return contactRepo.save(contact).getId();
+        }
+        else {
+            return null;
+        }
     }
 
     @Override

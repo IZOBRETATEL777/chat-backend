@@ -14,7 +14,7 @@ public interface ContactRepo extends JpaRepository<Contact, Long> {
             nativeQuery = true)
     List<Long> findIdByOwnerId(Long id);
 
-    @Query(value = "select contacts.id, contacts.login, contacts.name, contacts.phone_number, contacts.surname, contacts.owner_id " +
+    @Query(value = "select contacts.id, contacts.user_id, contacts.owner_id " +
             "from contacts join users u on u.id = contacts.owner_id where contacts.id = ?1 and owner_id = ?2",
             nativeQuery = true)
     Contact findByIdAndOwnerId(Long contactId, Long ownerId);

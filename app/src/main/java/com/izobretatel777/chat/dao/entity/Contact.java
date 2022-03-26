@@ -18,19 +18,12 @@ public class Contact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "login", nullable = false, unique = true)
-    String login;
-
-    @Column(name = "name")
-    String name;
-
-    @Column(name = "surname")
-    String surname;
-
-    @Column(name = "phone_number")
-    String phoneNumber;
-
     @ManyToOne
     @JoinColumn(name = "owner_id")
     User owner;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    User userId;
+
 }
