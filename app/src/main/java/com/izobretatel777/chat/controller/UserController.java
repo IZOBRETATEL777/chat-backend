@@ -63,7 +63,7 @@ public class UserController {
         userService.deleteUserById(id);
     }
 
-    @PostMapping
+    @PostMapping("register")
     @PreAuthorize("hasAuthority('APP')")
     @Operation(
             summary = "Register",

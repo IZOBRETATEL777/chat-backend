@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/authenticate")
+@RequestMapping("users/authenticate")
 @Tag(name = "Authentication", description = "Controller for authentication")
 @RequiredArgsConstructor
 public class JwtAuthenticationController {

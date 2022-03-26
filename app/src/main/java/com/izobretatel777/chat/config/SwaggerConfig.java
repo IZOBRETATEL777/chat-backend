@@ -5,6 +5,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,6 +21,44 @@ public class SwaggerConfig {
                         .title(":Chat! OpenApi reference")
                         .version("V1.0")
                         .description("API documentation for :Chat!")
-                        .license(new License().name("Licence").url("http://springdoc.org")));
+                        .license(new License().name("Licence").url("https://springdoc.org")));
+    }
+
+    @Bean
+    public GroupedOpenApi MessagingApi() {
+        return GroupedOpenApi.builder()
+                .group("Messaging API")
+                .pathsToMatch(
+                        "/chats/**",
+                        "/contacts/**",
+                        "/messages/**",
+                        "/send/**"
+                )
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi UserManagement() {
+        return GroupedOpenApi.builder()
+                .group("User management API")
+                .pathsToMatch(
+                        "/users/**"
+                )
+                .pathsToExclude(
+                        "/users/authenticate/**",
+                        "/users/register/**"
+                )
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi LoginRegistration() {
+        return GroupedOpenApi.builder()
+                .group("Login and Registration API")
+                .pathsToMatch(
+                        "/users/authenticate/**",
+                        "/users/register/**"
+                )
+                .build();
     }
 }
