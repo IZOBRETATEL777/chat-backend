@@ -57,4 +57,8 @@ public class User {
 
     @ManyToMany(mappedBy = "users")
     List<Chat> chats = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "key_id", referencedColumnName = "id")
+    Key key;
 }
