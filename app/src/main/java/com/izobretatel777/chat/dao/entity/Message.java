@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-@Table(name = "messages")
+@Table(name = "message")
 @Data
 @Entity
 @AllArgsConstructor

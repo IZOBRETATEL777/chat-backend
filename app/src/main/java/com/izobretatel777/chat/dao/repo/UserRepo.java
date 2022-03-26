@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface UserRepo extends JpaRepository<User, Long> {
     User findByLogin(String login);
 
-    @Query(value = "select id from users where login=?1", nativeQuery = true)
+    @Query(value = "select id from user where login=?1", nativeQuery = true)
     Long findIdByLogin(String login);
 
     User findByPhoneNumber(String phoneNumber);

@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Table(name = "chats")
+@Table(name = "chat")
 @Data
 @Entity
 @AllArgsConstructor

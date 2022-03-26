@@ -5,7 +5,7 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 
-@Table(name = "crypto_keys")
+@Table(name = "crypto_key")
 @Data
 @Entity
 @AllArgsConstructor

@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface ChatRepo extends JpaRepository<Chat, Long> {
 
-    @Query(value = "select id from chat_user join chats on chats.id=chat_user.chat_id where chat_user.user_id=?1", nativeQuery = true)
+    @Query(value = "select id from chat_user join chat on chat.id=chat_user.chat_id where chat_user.user_id=?1", nativeQuery = true)
     List<Long> findAllByUserId(Long id);
 }

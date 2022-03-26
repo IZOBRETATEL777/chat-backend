@@ -10,12 +10,12 @@ import java.util.List;
 @Repository
 public interface ContactRepo extends JpaRepository<Contact, Long> {
 
-    @Query(value = "select contacts.id from contacts join users u on u.id = contacts.owner_id where owner_id = ?1",
+    @Query(value = "select contact.id from contact join user u on u.id = contact.owner_id where owner_id = ?1",
             nativeQuery = true)
     List<Long> findIdByOwnerId(Long id);
 
-    @Query(value = "select contacts.id, contacts.user_id, contacts.owner_id " +
-            "from contacts join users u on u.id = contacts.owner_id where contacts.id = ?1 and owner_id = ?2",
+    @Query(value = "select contact.id, contact.user_id, contact.owner_id " +
+            "from contact join user u on u.id = contact.owner_id where contact.id = ?1 and owner_id = ?2",
             nativeQuery = true)
     Contact findByIdAndOwnerId(Long contactId, Long ownerId);
 }

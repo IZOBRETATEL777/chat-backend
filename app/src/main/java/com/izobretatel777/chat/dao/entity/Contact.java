@@ -5,7 +5,7 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 
-@Table(name = "contacts")
+@Table(name = "contact")
 @Data
 @Entity
 @AllArgsConstructor

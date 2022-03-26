@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface MessageRepo extends JpaRepository<Message, Long> {
-    @Query(value = "select messages.id from messages join chats c on messages.chat_id = c.id where messages.chat_id=?1", nativeQuery = true)
+    @Query(value = "select message.id from message join chat c on message.chat_id = c.id where message.chat_id=?1", nativeQuery = true)
     List<Long> findAllByChatId(Long id);
 
     Message getMessageByChat_IdAndId(Long chatId, Long id);
