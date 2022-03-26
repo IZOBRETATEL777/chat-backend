@@ -52,8 +52,11 @@ public class MessageServiceImpl implements MessageService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         User user = userRepo.findByLogin(currentPrincipalName);
+        String content = messageRequestDto.getContent();
+        if (messageRequestDto.isEncrypted())
+            content = keyService.decrypt(content, keyService.getKeyByUserId(user.getId()));
         Message message = Message.builder().chat(chatRepo.getById(messageRequestDto.getChatId())).author(user)
-                .content(messageRequestDto.getContent()).creationTime(new Date(System.currentTimeMillis())).build();
+                .content(content).creationTime(new Date(System.currentTimeMillis())).build();
         return messageRepo.save(message).getId();
     }
 
