@@ -19,3 +19,12 @@ spring:
         format_sql: true
     hibernate:
       ddl-auto: create-drop
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: izobretatel7777@gmail.com
+    password: ${SPRING_MAIL_PASSWROD}
+    properties.mail.smtp.auth: true
+    properties.mail.smtp.starttls.enable: true
+current:
+  url: ${CURRENT_URL:http://localhost}:${server.port}${server.servlet.context-path}

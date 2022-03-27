@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class User {
     Long id;
 
     @Column(name = "login", nullable = false, unique = true)
+    @Email
     String login;
 
     @Column(name = "password", nullable = false)

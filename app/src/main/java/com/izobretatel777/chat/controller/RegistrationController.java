@@ -1,7 +1,7 @@
 package com.izobretatel777.chat.controller;
 
 import com.izobretatel777.chat.dto.UserRequestDto;
-import com.izobretatel777.chat.service.UserService;
+import com.izobretatel777.chat.service.RegistrationService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("users/register")
 @RequiredArgsConstructor
 public class RegistrationController {
-    private final UserService userService;
+    private final RegistrationService registrationService;
 
     @GetMapping("/activate/{otp}")
     private boolean activateUser(@PathVariable String otp){
-        return userService.activateUserByOtp(otp);
+        return registrationService.activateUserByOtp(otp);
     }
 
     @PostMapping
@@ -23,6 +23,6 @@ public class RegistrationController {
             description = "Save a new User (register)"
     )
     public boolean saveUser(@RequestBody UserRequestDto userRequestDto){
-        return userService.saveUser(userRequestDto);
+        return registrationService.saveUser(userRequestDto);
     }
 }
