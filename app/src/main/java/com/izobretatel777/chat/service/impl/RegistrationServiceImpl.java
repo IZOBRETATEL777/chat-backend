@@ -55,7 +55,7 @@ public class RegistrationServiceImpl implements RegistrationService {
             return false;
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userEntityRepository.save(user);
-        emailingService.sendActivationEmail(fromEmail, user.getLogin(), "Welcome to :Chat! messenger!" +
+        emailingService.sendEmail(fromEmail, user.getLogin(), "Welcome to :Chat! messenger!" +
                 " To activate your account, please, visit next link: " +
                             currentUrl + "/users/register/activate/" + user.getOtp());
         return true;
@@ -67,6 +67,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         if (user == null || user.isActive())
             return false;
         user.setActive(true);
+        user.setOtp(RandomStringUtils.randomNumeric(6));
         userEntityRepository.save(user);
         return true;
     }

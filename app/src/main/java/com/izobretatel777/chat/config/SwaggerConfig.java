@@ -46,7 +46,8 @@ public class SwaggerConfig {
                 )
                 .pathsToExclude(
                         "/users/authenticate/**",
-                        "/users/register/**"
+                        "/users/register/**",
+                        "/users/reset_password/**"
                 )
                 .build();
     }
@@ -57,7 +58,8 @@ public class SwaggerConfig {
                 .group("Login and Registration API")
                 .pathsToMatch(
                         "/users/authenticate/**",
-                        "/users/register/**"
+                        "/users/register/**",
+                        "/users/reset_password/**"
                 )
                 .build();
     }
