@@ -41,7 +41,7 @@ public class ResetPasswordServiceImpl implements ResetPasswordService {
         user.setOtp(RandomStringUtils.randomNumeric(6));
         userRepo.save(user);
         String content = "Hello from :Chat! messenger! Use this code to reset your password:\n" + user.getOtp();
-        emailingService.sendActivationEmail(fromEmail, login, content);
+        emailingService.sendEmail(fromEmail, login, content);
         return true;
     }
 

@@ -12,12 +12,12 @@ public class EmailingServiceImpl implements EmailingService {
     private final JavaMailSender mailSender;
 
     @Override
-    public void sendActivationEmail(String from, String to, String content) {
+    public void sendEmail(String from, String to, String content) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setFrom(from);
         simpleMailMessage.setTo(to);
         simpleMailMessage.setText(content);
-        simpleMailMessage.setSubject(":Chat! account activation");
+        simpleMailMessage.setSubject(":Chat! message service");
         mailSender.send(simpleMailMessage);
     }
 }
