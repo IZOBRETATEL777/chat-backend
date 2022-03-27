@@ -7,7 +7,10 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import javax.validation.Constraint;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 

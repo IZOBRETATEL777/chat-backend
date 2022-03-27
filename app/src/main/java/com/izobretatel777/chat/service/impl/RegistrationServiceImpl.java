@@ -3,12 +3,12 @@ package com.izobretatel777.chat.service.impl;
 import com.izobretatel777.chat.dao.entity.User;
 import com.izobretatel777.chat.dao.repo.UserRepo;
 import com.izobretatel777.chat.dto.UserRequestDto;
-import com.izobretatel777.chat.mapper.UserMapper;
 import com.izobretatel777.chat.service.EmailingService;
 import com.izobretatel777.chat.service.KeyService;
 import com.izobretatel777.chat.service.RegistrationService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,6 +36,13 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     private String mailContent = "";
 
+    private boolean isValidUserData(User user) {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        return userEntityRepository.findByLogin(user.getLogin()) == null && violations.isEmpty();
+    }
+
     @Override
     public boolean saveUser(UserRequestDto userRequestDto) {
         User user = new User();
@@ -44,10 +51,10 @@ public class RegistrationServiceImpl implements RegistrationService {
         user.setActive(false);
         user.setKey(keyService.generateKey());
         user.setOtp(RandomStringUtils.randomNumeric(6));
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = factory.getValidator();
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
-        if (userEntityRepository.findByLogin(userRequestDto.getLogin()) != null || !violations.isEmpty())
+        user.setName(userRequestDto.getName());
+        user.setSurname(userRequestDto.getSurname());
+        user.setPhoneNumber(userRequestDto.getPhoneNumber());
+        if (!isValidUserData(user))
             return false;
         userEntityRepository.save(user);
         emailingService.sendActivationEmail(fromEmail, user.getLogin(), "Welcome to :Chat! messenger!" +
