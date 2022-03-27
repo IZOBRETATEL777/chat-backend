@@ -65,8 +65,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests().antMatchers(SWAGGER_WHITELIST).permitAll()
-                .antMatchers("/users/authenticate", "/users/register/**").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers(
+                        "/users/authenticate",
+                        "/users/register/**",
+                        "/user/password_recovery**"
+                ).permitAll().anyRequest().authenticated();
         http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
