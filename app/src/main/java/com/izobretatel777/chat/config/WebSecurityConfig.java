@@ -68,7 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/users/authenticate",
                         "/users/register/**",
-                        "/reset_password/**"
+                        "/users/reset_password/**"
                         ).permitAll()
                 .anyRequest().authenticated();
         http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
