@@ -29,7 +29,10 @@ public class JwtAuthenticationController {
     @PostMapping
     @Operation(
             summary = "Login",
-            description = "Get JWT token and encryption/decryption key for messages"
+            description = """
+                    Get JWT token and encryption/decryption key for messages by login (e-mail) and password.
+                    Phone number can be also used as login.
+                    """
     )
     public ResponseEntity<?> authenticate(@RequestBody JwtRequest jwtRequest){
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));

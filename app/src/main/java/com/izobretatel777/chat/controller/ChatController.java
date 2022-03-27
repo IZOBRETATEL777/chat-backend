@@ -26,7 +26,7 @@ public class ChatController {
             description = "Get all Chat ids for current user",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    List<Long> getChatsIds() {
+    public List<Long> getChatsIds() {
         return chatService.getChats();
     }
 
@@ -37,7 +37,7 @@ public class ChatController {
             description = "Get info about a Chat by its ID. User should be a member of that Chat",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    ChatResponseDto getChatById(@PathVariable long id) {
+    public ChatResponseDto getChatById(@PathVariable long id) {
         return chatService.getChatById(id);
     }
 
@@ -48,7 +48,7 @@ public class ChatController {
             description = "Create a new chat with user(s) in requestDto. Do not add current user in requestDto!",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    long createChat(@RequestBody ChatRequestDto chatRequestDto) {
+    public long createChat(@RequestBody ChatRequestDto chatRequestDto) {
         return chatService.createChat(chatRequestDto);
     }
 
@@ -59,7 +59,7 @@ public class ChatController {
             description = "Delete a Chat by it ID. User should be a member of that Chat",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    void deleteChatById(@PathVariable long id) {
+    public void deleteChatById(@PathVariable long id) {
         chatService.deleteChatById(id);
     }
 }

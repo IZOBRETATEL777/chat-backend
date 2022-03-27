@@ -1,17 +1,13 @@
 package com.izobretatel777.chat.service.impl;
 
-import com.izobretatel777.chat.dao.entity.Key;
 import com.izobretatel777.chat.dao.entity.User;
 import com.izobretatel777.chat.dao.repo.UserRepo;
-import com.izobretatel777.chat.dto.UserRequestDto;
 import com.izobretatel777.chat.dto.UserResponseDto;
 import com.izobretatel777.chat.mapper.UserMapper;
-import com.izobretatel777.chat.service.KeyService;
 import com.izobretatel777.chat.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,8 +20,6 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepo userEntityRepository;
     private final UserMapper userMapper;
-    private final PasswordEncoder passwordEncoder;
-    private final KeyService keyService;
 
     @Override
     public List<UserResponseDto> getUsers() {
@@ -45,16 +39,6 @@ public class UserServiceImpl implements UserService {
             response = userMapper.toResponseDto(user);
         }
         return response;
-    }
-
-    @Override
-    public Long saveUser(UserRequestDto userRequestDto) {
-        User user = new User();
-        user.setLogin(userRequestDto.getLogin());
-        user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
-        user.setActive(true);
-        user.setKey(keyService.generateKey());
-        return userEntityRepository.save(user).getId();
     }
 
     @Override

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,19 +24,31 @@ public class User {
     Long id;
 
     @Column(name = "login", nullable = false, unique = true)
+    @Email
+    @NotBlank
+    @Size(max = 255)
     String login;
 
     @Column(name = "password", nullable = false)
+    @NotBlank
+    @Size(min = 6, max = 255)
     String password;
 
-    @Column(name = "name")
+    @Column(name = "name", columnDefinition = "varchar(30)")
+    @Size(max = 30)
     String name;
 
-    @Column(name = "surname")
+    @Column(name = "surname", columnDefinition = "varchar(50)")
+    @Size(max = 50)
     String surname;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", columnDefinition = "varchar(15)")
+    @Pattern(regexp = "(^[0-9,\\-\\+]{9,15}$|^$)")
     String phoneNumber;
+
+    @Column(name = "OTP")
+    @Pattern(regexp = "^[0-9]{6}$")
+    String otp;
 
     @Column(name = "active", nullable = false, columnDefinition = "boolean default true")
     boolean active = true;

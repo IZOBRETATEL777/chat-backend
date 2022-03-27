@@ -1,6 +1,5 @@
 package com.izobretatel777.chat.controller;
 
-import com.izobretatel777.chat.dto.UserRequestDto;
 import com.izobretatel777.chat.dto.UserResponseDto;
 import com.izobretatel777.chat.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -61,17 +60,6 @@ public class UserController {
     )
     public void deleteUserById(@PathVariable long id){
         userService.deleteUserById(id);
-    }
-
-    @PostMapping("register")
-    @PreAuthorize("hasAuthority('APP')")
-    @Operation(
-            summary = "Register",
-            description = "Save a new User (register). Only for APPs (client application).",
-            security = @SecurityRequirement(name = "bearerAuth")
-    )
-    public long saveUser(@RequestBody UserRequestDto userRequestDto){
-        return userService.saveUser(userRequestDto);
     }
 }
 
