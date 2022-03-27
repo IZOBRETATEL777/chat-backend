@@ -34,8 +34,6 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Value("${current.url}")
     private String currentUrl;
 
-    private String mailContent = "";
-
     private boolean isValidUserData(User user) {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
@@ -47,7 +45,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     public boolean saveUser(UserRequestDto userRequestDto) {
         User user = new User();
         user.setLogin(userRequestDto.getLogin());
-        user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
+        user.setPassword(userRequestDto.getPassword());
         user.setActive(false);
         user.setKey(keyService.generateKey());
         user.setOtp(RandomStringUtils.randomNumeric(6));
@@ -56,6 +54,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         user.setPhoneNumber(userRequestDto.getPhoneNumber());
         if (!isValidUserData(user))
             return false;
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userEntityRepository.save(user);
         emailingService.sendActivationEmail(fromEmail, user.getLogin(), "Welcome to :Chat! messenger!" +
                 " To activate your account, please, visit next link: " +
