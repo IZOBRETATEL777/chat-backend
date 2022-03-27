@@ -54,6 +54,7 @@ public class ResetPasswordServiceImpl implements ResetPasswordService {
         if (!isValidUserData(user))
             return false;
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setOtp(RandomStringUtils.randomNumeric(6));
         userRepo.save(user);
         return true;
     }

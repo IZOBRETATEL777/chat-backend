@@ -67,6 +67,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         if (user == null || user.isActive())
             return false;
         user.setActive(true);
+        user.setOtp(RandomStringUtils.randomNumeric(6));
         userEntityRepository.save(user);
         return true;
     }
