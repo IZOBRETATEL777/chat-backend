@@ -8,7 +8,6 @@ import com.izobretatel777.chat.service.KeyService;
 import com.izobretatel777.chat.service.RegistrationService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

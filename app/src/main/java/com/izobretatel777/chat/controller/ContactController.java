@@ -27,7 +27,7 @@ public class ContactController {
             description = "Get all Contact IDs for current user",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    List<Long> getContacts() {
+    public List<Long> getContacts() {
         return contactService.getContacts();
     }
 
@@ -38,7 +38,7 @@ public class ContactController {
             description = "Get info about a Contact by its ID. User should poses this contact",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    ContactResponseDto getChatById(@PathVariable long id) {
+    public ContactResponseDto getChatById(@PathVariable long id) {
         return contactService.getContactById(id);
     }
 
@@ -49,7 +49,7 @@ public class ContactController {
             description = "Create a new Contact with the user whose ID in requestDTO",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    long createChat(@RequestBody ContactRequestDto contactRequestDto) {
+    public long createChat(@RequestBody ContactRequestDto contactRequestDto) {
         return contactService.createContact(contactRequestDto);
     }
 
@@ -60,7 +60,7 @@ public class ContactController {
             description = "Delete a Contact by its ID. User should poses this contact",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    void deleteChatById(@PathVariable long id) {
+    public void deleteChatById(@PathVariable long id) {
         contactService.deleteContactById(id);
     }
     

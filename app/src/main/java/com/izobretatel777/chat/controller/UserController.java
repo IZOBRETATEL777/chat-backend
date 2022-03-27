@@ -1,6 +1,5 @@
 package com.izobretatel777.chat.controller;
 
-import com.izobretatel777.chat.dto.UserRequestDto;
 import com.izobretatel777.chat.dto.UserResponseDto;
 import com.izobretatel777.chat.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;

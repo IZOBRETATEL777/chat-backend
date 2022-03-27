@@ -1,6 +1,5 @@
 package com.izobretatel777.chat.service.impl;
 
-import com.izobretatel777.chat.dao.entity.Key;
 import com.izobretatel777.chat.dao.entity.User;
 import com.izobretatel777.chat.dao.repo.UserRepo;
 import com.izobretatel777.chat.dto.UserResponseDto;

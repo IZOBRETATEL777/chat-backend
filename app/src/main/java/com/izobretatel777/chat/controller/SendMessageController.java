@@ -27,7 +27,7 @@ public class SendMessageController {
             description = "Create and send a Message from current user",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    long createMessage(@RequestBody MessageRequestDto messageRequestDto) {
+    public long createMessage(@RequestBody MessageRequestDto messageRequestDto) {
         return messageService.createMessage(messageRequestDto);
     }
 }

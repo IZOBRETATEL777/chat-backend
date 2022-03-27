@@ -4,7 +4,6 @@ import com.izobretatel777.chat.dao.entity.Key;
 import com.izobretatel777.chat.dao.entity.Message;
 import com.izobretatel777.chat.dao.entity.User;
 import com.izobretatel777.chat.dao.repo.ChatRepo;
-import com.izobretatel777.chat.dao.repo.KeyRepo;
 import com.izobretatel777.chat.dao.repo.MessageRepo;
 import com.izobretatel777.chat.dao.repo.UserRepo;
 import com.izobretatel777.chat.dto.MessageRequestDto;

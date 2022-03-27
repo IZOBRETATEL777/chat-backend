@@ -25,7 +25,7 @@ public class MessengerController {
             description = "Get all Message IDs in current chat (given as parameter)",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    List<Long> getMessagesByChatId(@RequestParam long chatId) {
+    public List<Long> getMessagesByChatId(@RequestParam long chatId) {
         return messageService.getMessagesByChatId(chatId);
     }
 
@@ -36,7 +36,7 @@ public class MessengerController {
             description = "Get a Message in current chat (ID of chat is given as parameter) by ID of that message ",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    MessageResponseDto getMessageById(@RequestParam long chatId, @PathVariable long messageId) {
+    public MessageResponseDto getMessageById(@RequestParam long chatId, @PathVariable long messageId) {
         return messageService.getMessageById(chatId, messageId);
     }
 
@@ -47,7 +47,7 @@ public class MessengerController {
             description = "Delete a Message by its ID",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    void deleteMessageById(@RequestParam long chatId, @PathVariable long messageId) {
+    public void deleteMessageById(@RequestParam long chatId, @PathVariable long messageId) {
         messageService.deleteMessageById(chatId, messageId);
     }
 
@@ -58,7 +58,7 @@ public class MessengerController {
             description = "Update status of a Message to 'delivered' by its ID",
             security = @SecurityRequirement(name = "bearerAuth")
     )
-    void updateMessageStatus(@RequestParam long chatId, @PathVariable long messageId){
+    public void updateMessageStatus(@RequestParam long chatId, @PathVariable long messageId){
         messageService.updateMessageStatus(chatId, messageId);
     }
 }

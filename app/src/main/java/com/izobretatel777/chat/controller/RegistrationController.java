@@ -13,7 +13,7 @@ public class RegistrationController {
     private final RegistrationService registrationService;
 
     @GetMapping("/activate/{otp}")
-    private boolean activateUser(@PathVariable String otp){
+    public boolean activateUser(@PathVariable String otp){
         return registrationService.activateUserByOtp(otp);
     }
 
