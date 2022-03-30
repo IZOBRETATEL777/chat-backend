@@ -23,7 +23,7 @@ public class RegistrationController {
                     Password should be less than 6 and not be greater than 10.
                     Name (optional) should not be greater than 30.
                     Surname (optional) should not be greater than 50.
-                    Phone Number (optional) should not be greater than 15 and contains only digits, '+' and '-' signs.
+                    Phone Number (optional) should not be less than 9 and not be greater than 15 and contains only digits, '+' and '-' signs.
                     If registration is done successfully, response will be 'true'; otherwise, 'false'.
                     """
     )
@@ -34,10 +34,15 @@ public class RegistrationController {
     @GetMapping("/activate/{otp}")
     @Operation(
             summary = "Activate user",
-            description = "Activate a new User by 6-digit OTP code from the e-mail (login field of the User)." +
-                    "If activation is done successfully, response will be 'true'; otherwise, 'false'."
+            description = """
+                    Activate a new User by 6-digit OTP code from the e-mail (login field of the User).
+                    Controller returns corresponding message about activation.
+                    """
     )
-    public boolean activateUser(@PathVariable String otp){
-        return registrationService.activateUserByOtp(otp);
+    public String activateUser(@PathVariable String otp) {
+        if (registrationService.activateUserByOtp(otp))
+            return "<h1>Successful activation</h1>";
+        else
+            return "<h1>Unsuccessful activation</h1>";
     }
 }
