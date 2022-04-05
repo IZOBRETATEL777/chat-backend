@@ -34,9 +34,12 @@ public class ResetPasswordController {
             summary = "Reset password",
             description = """
                     Reset Password using OTP from e-mail letter
-                    Responds 'true' if OTP is correct and password is acceptable; 'false' otherwise.
+                    Controller returns corresponding message about password reset.
                     """)
-    public boolean resetPassword(@RequestBody ResetPasswordDto resetPasswordDto) {
-        return resetPasswordService.resetPassword(resetPasswordDto);
+    public String resetPassword(@RequestBody ResetPasswordDto resetPasswordDto) {
+        if (resetPasswordService.resetPassword(resetPasswordDto))
+            return "<h1>Successful password reset</h1>";
+        else
+            return "<h1>Unsuccessful password reset</h1>";
     }
 }
