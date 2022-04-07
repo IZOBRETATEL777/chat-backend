@@ -30,8 +30,8 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Value("${spring.mail.username}")
     private String fromEmail;
 
-    @Value("${current.url}")
-    private String currentUrl;
+    @Value("${spring.mail.activation-page}")
+    private String activationPage;
 
     private boolean isValidUserData(User user) {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -56,8 +56,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userEntityRepository.save(user);
         emailingService.sendEmail(fromEmail, user.getLogin(), "Welcome to :Chat! messenger!" +
-                " To activate your account, please, visit next link: " +
-                            currentUrl + "/users/register/activate/" + user.getOtp());
+                " To activate your account, please, visit next link: " + activationPage + user.getOtp());
         return true;
     }
 
@@ -72,3 +71,4 @@ public class RegistrationServiceImpl implements RegistrationService {
         return true;
     }
 }
+

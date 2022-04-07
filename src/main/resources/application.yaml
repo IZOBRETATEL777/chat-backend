@@ -26,5 +26,5 @@ spring:
     password: ${SPRING_MAIL_PASSWROD}
     properties.mail.smtp.auth: true
     properties.mail.smtp.starttls.enable: true
-current:
-  url: ${CURRENT_URL:http://localhost}:${server.port}${server.servlet.context-path}
+    activation-page: ${SPRING_MAIL_ACTIVATION_PAGE}
+
