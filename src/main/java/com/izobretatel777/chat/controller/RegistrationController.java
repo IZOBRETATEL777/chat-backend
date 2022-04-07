@@ -3,6 +3,10 @@ package com.izobretatel777.chat.controller;
 import com.izobretatel777.chat.dto.UserRequestDto;
 import com.izobretatel777.chat.service.RegistrationService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +28,16 @@ public class RegistrationController {
                     Name (optional) should not be greater than 30.
                     Surname (optional) should not be greater than 50.
                     Phone Number (optional) should not be less than 9 and not be greater than 15 and contains only digits, '+' and '-' signs.
-                    If registration is done successfully, response will be 'true'; otherwise, 'false'.
                     """
     )
-    public boolean saveUser(@RequestBody UserRequestDto userRequestDto){
-        return registrationService.saveUser(userRequestDto);
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Successful registration"),
+            @ApiResponse(responseCode = "406", description = "Not all requirements are followed " +
+                    "(incorrect phone number format, login format, etc"),
+            @ApiResponse(responseCode = "409", description = "Login is already used")
+    })
+    public void saveUser(@RequestBody UserRequestDto userRequestDto){
+        registrationService.saveUser(userRequestDto);
     }
 
     @GetMapping("/activate/{otp}")

@@ -9,8 +9,10 @@ import com.izobretatel777.chat.service.RegistrationService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -41,7 +43,9 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
     @Override
-    public boolean saveUser(UserRequestDto userRequestDto) {
+    public void saveUser(UserRequestDto userRequestDto) {
+        if (userEntityRepository.findByLogin(userRequestDto.getLogin()) != null)
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
         User user = new User();
         user.setLogin(userRequestDto.getLogin());
         user.setPassword(userRequestDto.getPassword());
@@ -52,12 +56,11 @@ public class RegistrationServiceImpl implements RegistrationService {
         user.setSurname(userRequestDto.getSurname());
         user.setPhoneNumber(userRequestDto.getPhoneNumber());
         if (!isValidUserData(user))
-            return false;
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userEntityRepository.save(user);
         emailingService.sendEmail(fromEmail, user.getLogin(), "Welcome to :Chat! messenger!" +
                 " To activate your account, please, visit next link: " + activationPage + user.getOtp());
-        return true;
     }
 
     @Override
