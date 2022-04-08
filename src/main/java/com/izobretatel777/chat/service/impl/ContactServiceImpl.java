@@ -49,9 +49,9 @@ public class ContactServiceImpl implements ContactService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         User currentUser = userRepo.findByLogin(currentPrincipalName);
-        Optional<User> friend = userRepo.findById(contactRequestDto.getUserId());
-        if (friend.isPresent()) {
-            Contact contact = Contact.builder().owner(currentUser).userId(friend.get()).build();
+        User friend = userRepo.findByLogin(contactRequestDto.getLogin());
+        if (friend != null) {
+            Contact contact = Contact.builder().owner(currentUser).userId(friend).build();
             return contactRepo.save(contact).getId();
         }
         else {
