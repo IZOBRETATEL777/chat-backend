@@ -1,9 +1,6 @@
 package com.izobretatel777.chat.dto;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
@@ -12,6 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
 public class ChatResponseDto {
     String title;
     List<Long> usersIds;

@@ -24,6 +24,7 @@ public class Message {
     String content;
 
     @Column(name = "delivered", nullable = false, columnDefinition = "boolean default false")
+    @Builder.Default
     boolean delivered = false;
 
     @Column(name = "creation_time", nullable = false, columnDefinition = "datetime default CURRENT_TIMESTAMP")

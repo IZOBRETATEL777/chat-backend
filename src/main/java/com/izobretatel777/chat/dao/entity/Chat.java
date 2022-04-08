@@ -28,11 +28,11 @@ public class Chat {
     User owner;
 
     @OneToMany(mappedBy = "chat")
-    List<Message> messages = new ArrayList<>();
+    List<Message> messages;
 
     @ManyToMany()
     @JoinTable(name = "chat_user",
             joinColumns = @JoinColumn(name = "chat_id", referencedColumnName = "id"),
             inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
-    List<User> users = new ArrayList<>();
+    List<User> users;
 }

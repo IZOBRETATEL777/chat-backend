@@ -8,7 +8,6 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -57,19 +56,19 @@ public class User {
     String role = "USER";
 
     @OneToMany(mappedBy = "owner")
-    List<Chat> chatList = new ArrayList<>();
+    List<Chat> chatList;
 
     @OneToMany(mappedBy = "author")
-    List<Message> messages = new ArrayList<>();
+    List<Message> messages;
 
     @OneToMany(mappedBy = "owner")
-    List<Contact> contacts = new ArrayList<>();
+    List<Contact> contacts;
 
     @OneToMany(mappedBy = "userId")
-    List<Contact> friends = new ArrayList<>();
+    List<Contact> friends;
 
     @ManyToMany(mappedBy = "users")
-    List<Chat> chats = new ArrayList<>();
+    List<Chat> chats;
 
     @OneToOne
     @JoinColumn(name = "key_id", referencedColumnName = "id", nullable = false)
