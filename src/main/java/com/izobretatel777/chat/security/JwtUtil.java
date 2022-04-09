@@ -14,10 +14,12 @@ import java.util.function.Function;
 
 @Component
 public class JwtUtil {
-    private static final long JWT_VALIDITY = 3600000;
+
+    @Value("${jwt.key-validity}")
+    private long JWT_KEY_VALIDITY;
 
     @Value("${jwt.secret-key}")
-    private String secret;
+    private String JWT_SECRET_KEY;
 
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
@@ -33,7 +35,7 @@ public class JwtUtil {
     }
 
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(JWT_SECRET_KEY).parseClaimsJws(token).getBody();
     }
 
     private boolean isTokenExpired(String token) {
@@ -56,8 +58,8 @@ public class JwtUtil {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_VALIDITY))
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .setExpiration(new Date(System.currentTimeMillis() + JWT_KEY_VALIDITY))
+                .signWith(SignatureAlgorithm.HS512, JWT_SECRET_KEY)
                 .compact();
     }
 }
