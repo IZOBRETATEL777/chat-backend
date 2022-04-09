@@ -1,8 +1,11 @@
 package com.izobretatel777.chat.controller;
 
+import com.izobretatel777.chat.dto.UserInfoRequestDto;
 import com.izobretatel777.chat.dto.UserResponseDto;
 import com.izobretatel777.chat.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +41,22 @@ public class UserController {
     )
     public UserResponseDto getUser(){
         return userService.getUser();
+    }
+
+    @PostMapping("/update/")
+    @PreAuthorize("hasAuthority('USER')")
+    @Operation(
+            summary = "Update user profile info",
+            description = "Update current User profile info, such as name or phone number.",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Successful update"),
+            @ApiResponse(responseCode = "406", description = "Not all requirements are followed " +
+                    "(incorrect phone number format, name size is too long, etc")
+    })
+    public void updateUserInfo(@RequestBody UserInfoRequestDto userInfoRequestDto) {
+        userService.updateUserInfo(userInfoRequestDto);
     }
 
     @GetMapping("/{id}")
