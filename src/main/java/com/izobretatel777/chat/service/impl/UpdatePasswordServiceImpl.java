@@ -7,10 +7,12 @@ import com.izobretatel777.chat.service.UpdatePasswordService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -36,22 +38,23 @@ public class UpdatePasswordServiceImpl implements UpdatePasswordService {
     }
 
     @Override
-    public boolean sendResetPasswordEmail(String login) {
+    public void sendResetPasswordEmail(String login) {
         User user = userRepo.findByLogin(login);
         if (user == null)
-            return false;
+            throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED);
         user.setOtp(RandomStringUtils.randomNumeric(6));
+        if (!isValidUserData(user))
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
         userRepo.save(user);
         String content = "Hello from :Chat! messenger! Use this code to change your password:\n" + user.getOtp();
         emailingService.sendEmail(fromEmail, login, content);
-        return true;
     }
 
     @Override
-    public boolean sendResetPasswordEmail() {
+    public void sendResetPasswordEmail() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
-        return sendResetPasswordEmail(currentPrincipalName);
+        sendResetPasswordEmail(currentPrincipalName);
     }
 
     @Override

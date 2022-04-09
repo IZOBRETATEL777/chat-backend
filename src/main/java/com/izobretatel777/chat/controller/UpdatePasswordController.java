@@ -3,6 +3,9 @@ package com.izobretatel777.chat.controller;
 import com.izobretatel777.chat.dto.UpdatePasswordRequestDto;
 import com.izobretatel777.chat.service.UpdatePasswordService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,11 +27,19 @@ public class UpdatePasswordController {
             description = """
                     Send an email with OTP by User login (email).
                     Responds 'true' if login exists; 'false' otherwise.
-                    """)
+                    """,
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
     @GetMapping
     @PreAuthorize("hasAuthority('USER')")
-    public boolean sendUpdatePasswordEmail() {
-        return updatePasswordService.sendResetPasswordEmail();
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Successful password update"),
+            @ApiResponse(responseCode = "401", description = "No user found"),
+            @ApiResponse(responseCode = "406", description = "Not all requirements are followed " +
+                    "(password is too long, etc")
+    })
+    public void sendUpdatePasswordEmail() {
+        updatePasswordService.sendResetPasswordEmail();
     }
 
     @PostMapping
@@ -37,7 +48,9 @@ public class UpdatePasswordController {
             description = """
                     Update Password using OTP from e-mail letter
                     Controller returns corresponding message about password change.
-                    """)
+                    """,
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
     @PreAuthorize("hasAuthority('USER')")
     public String updatePassword(@RequestBody UpdatePasswordRequestDto updatePasswordRequestDto) {
         if (updatePasswordService.resetPassword(updatePasswordRequestDto))

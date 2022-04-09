@@ -3,6 +3,9 @@ package com.izobretatel777.chat.controller;
 import com.izobretatel777.chat.dto.UpdatePasswordRequestDto;
 import com.izobretatel777.chat.service.UpdatePasswordService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +28,15 @@ public class ResetPasswordController {
                     Send an email with OTP by User login (email).
                     Responds 'true' if login exists; 'false' otherwise.
                     """)
-    public boolean sendResetPasswordEmail(@PathVariable String login) {
-        return resetPasswordService.sendResetPasswordEmail(login);
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Successful password reset"),
+            @ApiResponse(responseCode = "401", description = "No user found"),
+            @ApiResponse(responseCode = "406", description = "Not all requirements are followed " +
+                    "(password is too long, etc")
+    })
+    public void sendResetPasswordEmail(@PathVariable String login) {
+        resetPasswordService.sendResetPasswordEmail(login);
     }
-
     @PostMapping
     @Operation(
             summary = "Reset password",
