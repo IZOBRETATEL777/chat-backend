@@ -5,6 +5,7 @@ import com.izobretatel777.chat.service.UpdatePasswordService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,28 +17,30 @@ import org.springframework.web.bind.annotation.*;
         """)
 @RequiredArgsConstructor
 public class UpdatePasswordController {
-    private final UpdatePasswordService resetPasswordService;
+    private final UpdatePasswordService updatePasswordService;
 
-    @GetMapping("{login}")
     @Operation(
             summary = "Send an update password e-mail",
             description = """
                     Send an email with OTP by User login (email).
                     Responds 'true' if login exists; 'false' otherwise.
                     """)
-    public boolean sendUpdatePasswordEmail(@PathVariable String login) {
-        return resetPasswordService.sendResetPasswordEmail(login);
+    @GetMapping
+    @PreAuthorize("hasAuthority('USER')")
+    public boolean sendUpdatePasswordEmail() {
+        return updatePasswordService.sendResetPasswordEmail();
     }
 
     @PostMapping
     @Operation(
             summary = "Update password",
             description = """
-                    Reset Password using OTP from e-mail letter
-                    Controller returns corresponding message about password reset.
+                    Update Password using OTP from e-mail letter
+                    Controller returns corresponding message about password change.
                     """)
+    @PreAuthorize("hasAuthority('USER')")
     public String updatePassword(@RequestBody UpdatePasswordRequestDto updatePasswordRequestDto) {
-        if (resetPasswordService.resetPassword(updatePasswordRequestDto))
+        if (updatePasswordService.resetPassword(updatePasswordRequestDto))
             return "<h1>Successful password update</h1>";
         else
             return "<h1>Unsuccessful password update</h1>";

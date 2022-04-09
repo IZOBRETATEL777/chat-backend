@@ -7,6 +7,8 @@ import com.izobretatel777.chat.service.UpdatePasswordService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +45,13 @@ public class UpdatePasswordServiceImpl implements UpdatePasswordService {
         String content = "Hello from :Chat! messenger! Use this code to change your password:\n" + user.getOtp();
         emailingService.sendEmail(fromEmail, login, content);
         return true;
+    }
+
+    @Override
+    public boolean sendResetPasswordEmail() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return sendResetPasswordEmail(currentPrincipalName);
     }
 
     @Override
