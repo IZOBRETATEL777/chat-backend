@@ -12,12 +12,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+// JWT tokens handling
 @Component
 public class JwtUtil {
 
+    // Time of JWT life
     @Value("${jwt.key-validity}")
     private long JWT_KEY_VALIDITY;
 
+    // Salt
     @Value("${jwt.secret-key}")
     private String JWT_SECRET_KEY;
 

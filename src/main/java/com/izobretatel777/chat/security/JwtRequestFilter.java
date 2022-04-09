@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+// Servlet that is filtering authorized and non-authorized requests
 @Component
 @RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -25,9 +26,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        // Extract token
         final String requestTokenHeader = request.getHeader("Authorization");
         String username = null;
         String jwtToken = null;
+
+        // If header contains Bearer header process extracting
         if (requestTokenHeader != null  && requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);
             try{
@@ -41,8 +45,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             System.out.println("Cannot get jwtToken header");
         }
         var context = SecurityContextHolder.getContext().getAuthentication();
+        // If username and context are not empty trying to authenticate user
         if (username != null &&  context == null){
             UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(username);
+            // If decoded token contains valid data then authenticate user.
             if (jwtTokenUtil.validateToken(jwtToken, userDetails)){
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

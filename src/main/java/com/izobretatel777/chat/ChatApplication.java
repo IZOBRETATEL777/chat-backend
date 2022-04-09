@@ -3,6 +3,7 @@ package com.izobretatel777.chat;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+// Starting point
 @SpringBootApplication
 public class ChatApplication {
 

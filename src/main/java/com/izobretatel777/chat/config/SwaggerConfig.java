@@ -9,10 +9,12 @@ import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+// configuration for autodocumentation
 @Configuration
 public class SwaggerConfig {
     @Bean
     public OpenAPI customOpenAPI() {
+        // Add JWT authentication support basic information to Swagger
         return new OpenAPI()
                 .components(new Components()
                         .addSecuritySchemes("bearerAuth", new SecurityScheme()
@@ -24,6 +26,8 @@ public class SwaggerConfig {
                         .license(new License().name("Licence").url("https://springdoc.org")));
     }
 
+
+    // Groups
     @Bean
     public GroupedOpenApi MessagingApi() {
         return GroupedOpenApi.builder()
