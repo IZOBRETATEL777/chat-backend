@@ -2,16 +2,24 @@ package com.izobretatel777.chat.service.impl;
 
 import com.izobretatel777.chat.dao.entity.User;
 import com.izobretatel777.chat.dao.repo.UserRepo;
+import com.izobretatel777.chat.dto.UserInfoRequestDto;
 import com.izobretatel777.chat.dto.UserResponseDto;
 import com.izobretatel777.chat.mapper.UserMapper;
 import com.izobretatel777.chat.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -57,5 +65,26 @@ public class UserServiceImpl implements UserService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         return userMapper.toResponseDto(userEntityRepository.findByLogin(currentPrincipalName));
+    }
+
+    private boolean isValidUserData(User user) {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        return violations.isEmpty();
+    }
+
+    @Override
+    public void updateUserInfo(UserInfoRequestDto userInfoRequestDto) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        User user = userEntityRepository.findByLogin(currentPrincipalName);
+        user.setName(userInfoRequestDto.getName());
+        user.setSurname(userInfoRequestDto.getSurname());
+        user.setPhoneNumber(userInfoRequestDto.getPhoneNumber());
+        if (!isValidUserData(user))
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
+        else
+            userEntityRepository.save(user);
     }
 }
