@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("users")
-@Tag(name = "Users", description = "Controller for CRUD manipulations on users. Mostly for admins and clients (apps)")
+@Tag(name = "Users", description = "Controller for CRUD manipulations on users.")
 @RequiredArgsConstructor
 public class UserController {
 
