@@ -2,8 +2,8 @@ package com.izobretatel777.chat.service.impl;
 
 import com.izobretatel777.chat.dao.entity.User;
 import com.izobretatel777.chat.dao.repo.UserRepo;
-import com.izobretatel777.chat.dto.ResetPasswordDto;
-import com.izobretatel777.chat.service.ResetPasswordService;
+import com.izobretatel777.chat.dto.UpdatePasswordRequestDto;
+import com.izobretatel777.chat.service.UpdatePasswordService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +18,7 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-public class ResetPasswordServiceImpl implements ResetPasswordService {
+public class UpdatePasswordServiceImpl implements UpdatePasswordService {
     private final EmailingServiceImpl emailingService;
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
@@ -40,17 +40,17 @@ public class ResetPasswordServiceImpl implements ResetPasswordService {
             return false;
         user.setOtp(RandomStringUtils.randomNumeric(6));
         userRepo.save(user);
-        String content = "Hello from :Chat! messenger! Use this code to reset your password:\n" + user.getOtp();
+        String content = "Hello from :Chat! messenger! Use this code to change your password:\n" + user.getOtp();
         emailingService.sendEmail(fromEmail, login, content);
         return true;
     }
 
     @Override
-    public boolean resetPassword(ResetPasswordDto resetPasswordDto) {
-        User user = userRepo.findByOtp(resetPasswordDto.getOtp());
+    public boolean resetPassword(UpdatePasswordRequestDto updatePasswordRequestDto) {
+        User user = userRepo.findByOtp(updatePasswordRequestDto.getOtp());
         if (user == null)
             return false;
-        user.setPassword(resetPasswordDto.getNewPassword());
+        user.setPassword(updatePasswordRequestDto.getNewPassword());
         if (!isValidUserData(user))
             return false;
         user.setPassword(passwordEncoder.encode(user.getPassword()));
