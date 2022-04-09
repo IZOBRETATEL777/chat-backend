@@ -1,7 +1,7 @@
 package com.izobretatel777.chat.service.impl;
 
 import com.izobretatel777.chat.dao.repo.UserRepo;
-import com.izobretatel777.chat.service.JwtUserDetailsService;
+import com.izobretatel777.chat.service.login.JwtUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

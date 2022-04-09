@@ -2,10 +2,10 @@ package com.izobretatel777.chat.service.impl;
 
 import com.izobretatel777.chat.dao.entity.User;
 import com.izobretatel777.chat.dao.repo.UserRepo;
-import com.izobretatel777.chat.dto.UserRequestDto;
-import com.izobretatel777.chat.service.EmailingService;
-import com.izobretatel777.chat.service.KeyService;
-import com.izobretatel777.chat.service.RegistrationService;
+import com.izobretatel777.chat.dto.login.UserRequestDto;
+import com.izobretatel777.chat.service.util.EmailingService;
+import com.izobretatel777.chat.service.util.KeyService;
+import com.izobretatel777.chat.service.login.RegistrationService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;

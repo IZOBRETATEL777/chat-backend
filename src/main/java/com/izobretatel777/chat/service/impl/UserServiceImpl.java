@@ -2,10 +2,10 @@ package com.izobretatel777.chat.service.impl;
 
 import com.izobretatel777.chat.dao.entity.User;
 import com.izobretatel777.chat.dao.repo.UserRepo;
-import com.izobretatel777.chat.dto.UserInfoRequestDto;
-import com.izobretatel777.chat.dto.UserResponseDto;
+import com.izobretatel777.chat.dto.login.UserInfoRequestDto;
+import com.izobretatel777.chat.dto.login.UserResponseDto;
 import com.izobretatel777.chat.mapper.UserMapper;
-import com.izobretatel777.chat.service.UserService;
+import com.izobretatel777.chat.service.login.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;

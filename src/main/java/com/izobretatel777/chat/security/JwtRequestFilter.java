@@ -1,6 +1,6 @@
 package com.izobretatel777.chat.security;
 
-import com.izobretatel777.chat.service.JwtUserDetailsService;
+import com.izobretatel777.chat.service.login.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

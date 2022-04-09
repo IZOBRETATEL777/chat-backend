@@ -1,7 +1,7 @@
 package com.izobretatel777.chat.mapper;
 
 import com.izobretatel777.chat.dao.entity.Message;
-import com.izobretatel777.chat.dto.MessageResponseDto;
+import com.izobretatel777.chat.dto.messaging.MessageResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
 

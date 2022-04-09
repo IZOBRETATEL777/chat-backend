@@ -4,17 +4,16 @@ import com.izobretatel777.chat.dao.entity.Contact;
 import com.izobretatel777.chat.dao.entity.User;
 import com.izobretatel777.chat.dao.repo.ContactRepo;
 import com.izobretatel777.chat.dao.repo.UserRepo;
-import com.izobretatel777.chat.dto.ContactRequestDto;
-import com.izobretatel777.chat.dto.ContactResponseDto;
+import com.izobretatel777.chat.dto.messaging.ContactRequestDto;
+import com.izobretatel777.chat.dto.messaging.ContactResponseDto;
 import com.izobretatel777.chat.mapper.ContactMapper;
-import com.izobretatel777.chat.service.ContactService;
+import com.izobretatel777.chat.service.messaging.ContactService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

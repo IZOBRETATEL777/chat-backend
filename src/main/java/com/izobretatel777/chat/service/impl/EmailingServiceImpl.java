@@ -1,6 +1,6 @@
 package com.izobretatel777.chat.service.impl;
 
-import com.izobretatel777.chat.service.EmailingService;
+import com.izobretatel777.chat.service.util.EmailingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
