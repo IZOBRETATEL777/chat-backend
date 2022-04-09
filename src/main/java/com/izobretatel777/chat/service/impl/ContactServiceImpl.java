@@ -7,6 +7,7 @@ import com.izobretatel777.chat.dao.repo.UserRepo;
 import com.izobretatel777.chat.dto.messaging.ContactRequestDto;
 import com.izobretatel777.chat.dto.messaging.ContactResponseDto;
 import com.izobretatel777.chat.mapper.ContactMapper;
+import com.izobretatel777.chat.service.login.UserService;
 import com.izobretatel777.chat.service.messaging.ContactService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -20,22 +21,19 @@ import java.util.List;
 public class ContactServiceImpl implements ContactService {
 
     private final ContactRepo contactRepo;
+    private final UserService userService;
     private final UserRepo userRepo;
     private final ContactMapper contactMapper;
 
     @Override
     public List<Long> getContacts() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        Long userId = userRepo.findIdByLogin(currentPrincipalName);
+        Long userId = userService.getCurrentlyLoggedUser().getId();
         return contactRepo.findIdByOwnerId(userId);
     }
 
     @Override
     public ContactResponseDto getContactById(Long id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        Long userId = userRepo.findIdByLogin(currentPrincipalName);
+        Long userId = userService.getCurrentlyLoggedUser().getId();
         Contact contact = contactRepo.findByIdAndOwnerId(id, userId);
         if (contact != null)
             return contactMapper.toResponseDto(contact);
@@ -45,9 +43,7 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public Long createContact(ContactRequestDto contactRequestDto) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User currentUser = userRepo.findByLogin(currentPrincipalName);
+        User currentUser = userService.getCurrentlyLoggedUser();
         User friend = userRepo.findByLogin(contactRequestDto.getLogin());
         if (friend != null) {
             Contact contact = Contact.builder().owner(currentUser).userId(friend).build();
@@ -60,9 +56,7 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public void deleteContactById(Long id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        Long userId = userRepo.findIdByLogin(currentPrincipalName);
+        Long userId = userService.getCurrentlyLoggedUser().getId();
         if (contactRepo.findByIdAndOwnerId(id, userId) != null)
             contactRepo.deleteById(id);
     }

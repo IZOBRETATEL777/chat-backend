@@ -7,6 +7,7 @@ import com.izobretatel777.chat.dao.repo.UserRepo;
 import com.izobretatel777.chat.dto.messaging.ChatRequestDto;
 import com.izobretatel777.chat.dto.messaging.ChatResponseDto;
 import com.izobretatel777.chat.mapper.ChatMapper;
+import com.izobretatel777.chat.service.login.UserService;
 import com.izobretatel777.chat.service.messaging.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -19,24 +20,21 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ChatServiceImpl implements ChatService {
+    private final UserService userService;
     private final UserRepo userRepo;
     private final ChatRepo chatRepo;
     private final ChatMapper chatMapper;
 
     @Override
     public List<Long> getChats() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        Long id = userRepo.findIdByLogin(currentPrincipalName);
+        Long id = userService.getCurrentlyLoggedUser().getId();
         return chatRepo.findAllByUserId(id);
     }
 
     @Override
     public ChatResponseDto getChatById(Long id) {
         ChatResponseDto chatResponseDto = null;
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user = userRepo.findByLogin(currentPrincipalName);
+        User user = userService.getCurrentlyLoggedUser();
         Optional<Chat> chatToFind = chatRepo.findById(id);
         if (chatToFind.isPresent() && chatToFind.get().getUsers().contains(user)) {
             chatResponseDto = chatMapper.toResponseDto(chatToFind.get());
@@ -46,9 +44,7 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public Long createChat(ChatRequestDto chatRequestDto) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User currentUser = userRepo.findByLogin(currentPrincipalName);
+        User currentUser = userService.getCurrentlyLoggedUser();
         Chat chat = Chat.builder().title(chatRequestDto.getTitle()).owner(currentUser)
                 .users(userRepo.findAllById(chatRequestDto.getUsersIds())).build();
         chat.getUsers().add(currentUser);
@@ -57,9 +53,7 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public void deleteChatById(Long id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user = userRepo.findByLogin(currentPrincipalName);
+        User user = userService.getCurrentlyLoggedUser();
         Optional<Chat> chatToDelete = chatRepo.findById(id);
         if (chatToDelete.isPresent() && chatToDelete.get().getOwner().equals(user)) {
             chatRepo.delete(chatToDelete.get());

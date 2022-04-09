@@ -9,6 +9,7 @@ import com.izobretatel777.chat.dao.repo.UserRepo;
 import com.izobretatel777.chat.dto.messaging.MessageRequestDto;
 import com.izobretatel777.chat.dto.messaging.MessageResponseDto;
 import com.izobretatel777.chat.mapper.MessageMapper;
+import com.izobretatel777.chat.service.login.UserService;
 import com.izobretatel777.chat.service.util.KeyService;
 import com.izobretatel777.chat.service.messaging.MessageService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class MessageServiceImpl implements MessageService {
 
     private final MessageRepo messageRepo;
     private final ChatRepo chatRepo;
-    private final UserRepo userRepo;
+    private final UserService userService;
     private final MessageMapper messageMapper;
     private final KeyService keyService;
 
@@ -36,9 +37,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public MessageResponseDto getMessageById(Long chatId, Long messageId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        Long id = userRepo.findIdByLogin(currentPrincipalName);
+        Long id = userService.getCurrentlyLoggedUser().getId();
         Key key = keyService.getKeyByUserId(id);
         Message message = messageRepo.getMessageByChat_IdAndId(chatId, messageId);
         String encryptedContent = keyService.encrypt(message.getContent(), key);
@@ -48,9 +47,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Long createMessage(MessageRequestDto messageRequestDto) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user = userRepo.findByLogin(currentPrincipalName);
+        User user = userService.getCurrentlyLoggedUser();
         String content = messageRequestDto.getContent();
         if (messageRequestDto.isEncrypted())
             content = keyService.decrypt(content, keyService.getKeyByUserId(user.getId()));
@@ -62,9 +59,7 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public void deleteMessageById(Long chatId, Long messageId) {
         Message message = messageRepo.getMessageByChat_IdAndId(chatId, messageId);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user = userRepo.findByLogin(currentPrincipalName);
+        User user = userService.getCurrentlyLoggedUser();
         if (user == message.getAuthor())
             messageRepo.delete(message);
     }
@@ -72,9 +67,7 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public void updateMessageStatus(Long chatId, Long messageId) {
         Message message = messageRepo.getMessageByChat_IdAndId(chatId, messageId);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User user = userRepo.findByLogin(currentPrincipalName);
+        User user = userService.getCurrentlyLoggedUser();
         if (user == message.getAuthor()) {
             message.setDelivered(true);
             messageRepo.save(message);

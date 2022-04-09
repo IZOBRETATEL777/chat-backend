@@ -40,7 +40,7 @@ public class UserController {
             security = @SecurityRequirement(name = "bearerAuth")
     )
     public UserResponseDto getUser(){
-        return userService.getUser();
+        return userService.getCurrentlyLoggedUserDto();
     }
 
     @PostMapping("/update/")
