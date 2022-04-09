@@ -1,4 +1,4 @@
-package com.izobretatel777.chat.controller.login;
+package com.izobretatel777.chat.controller.messaging;
 
 import com.izobretatel777.chat.dto.messaging.MessageRequestDto;
 import com.izobretatel777.chat.service.messaging.MessageService;

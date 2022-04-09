@@ -1,4 +1,4 @@
-package com.izobretatel777.chat.controller.login;
+package com.izobretatel777.chat.controller.management;
 
 import com.izobretatel777.chat.dto.login.UpdatePasswordRequestDto;
 import com.izobretatel777.chat.service.login.UpdatePasswordService;
