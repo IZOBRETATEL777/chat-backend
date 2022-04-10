@@ -1,14 +1,16 @@
-# :Chat! messenger
-
-<img src="docs/сhat-logo.svg" alt="сhat-logo" style="zoom: 10%;" />
+<h1 align="center">:Chat!</h1>
+<br/>
+<p align="center">
+<img src="docs/сhat-logo.svg" alt="сhat-logo" width="100" height="100" />
+------
+<h3 align="center">
+Backend for :Chat! messaging service
+<br/>
+https://ex-chat.tech/
+<h3>
 
 ------
-
-***Backend for :Chat! messaging service***
-
-***https://ex-chat.tech/***
-
-------
+![Downloads](https://img.shields.io/github/downloads/IZOBRETATEL777/chat-backend/total) ![Contributors](https://img.shields.io/github/contributors/IZOBRETATEL777/chat-backend?color=dark-green) ![Forks](https://img.shields.io/github/forks/IZOBRETATEL777/chat-backend?style=social) ![Stargazers](https://img.shields.io/github/stars/IZOBRETATEL777/chat-backend?style=social) ![Issues](https://img.shields.io/github/issues/IZOBRETATEL777/chat-backend) ![License](https://img.shields.io/github/license/IZOBRETATEL777/chat-backend) 
 
 ## Setup
 
