@@ -2,7 +2,6 @@
 <br/>
 <p align="center">
 <img src="docs/сhat-logo.svg" alt="сhat-logo" width="100" height="100" />
-------
 <h3 align="center">
 Backend for :Chat! messaging service
 <br/>
