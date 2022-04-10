@@ -2,11 +2,12 @@ package com.izobretatel777.chat.service.impl;
 
 import com.izobretatel777.chat.dao.entity.Key;
 import com.izobretatel777.chat.dao.repo.KeyRepo;
-import com.izobretatel777.chat.service.KeyService;
+import com.izobretatel777.chat.service.util.KeyService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
+// Service responsible for additional crypto operations
 @Service
 @RequiredArgsConstructor
 public class KeyServiceImpl implements KeyService {

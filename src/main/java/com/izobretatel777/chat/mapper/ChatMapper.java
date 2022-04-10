@@ -3,11 +3,10 @@ package com.izobretatel777.chat.mapper;
 import com.izobretatel777.chat.dao.entity.Chat;
 import com.izobretatel777.chat.dao.entity.Message;
 import com.izobretatel777.chat.dao.entity.User;
-import com.izobretatel777.chat.dto.ChatResponseDto;
+import com.izobretatel777.chat.dto.messaging.ChatResponseDto;
 import jdk.jfr.Name;
 import org.mapstruct.Mapper;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")

@@ -1,7 +1,7 @@
 package com.izobretatel777.chat.mapper;
 
 import com.izobretatel777.chat.dao.entity.User;
-import com.izobretatel777.chat.dto.UserResponseDto;
+import com.izobretatel777.chat.dto.login.UserResponseDto;
 import org.mapstruct.Mapper;
 
 import java.util.List;

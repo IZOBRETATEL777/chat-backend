@@ -1,11 +1,12 @@
 package com.izobretatel777.chat.service.impl;
 
-import com.izobretatel777.chat.service.EmailingService;
+import com.izobretatel777.chat.service.util.EmailingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+// Sending e-mail letters
 @Service
 @RequiredArgsConstructor
 public class EmailingServiceImpl implements EmailingService {

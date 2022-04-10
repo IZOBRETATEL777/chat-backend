@@ -2,10 +2,10 @@ package com.izobretatel777.chat.service.impl;
 
 import com.izobretatel777.chat.dao.entity.User;
 import com.izobretatel777.chat.dao.repo.UserRepo;
-import com.izobretatel777.chat.dto.UserRequestDto;
-import com.izobretatel777.chat.service.EmailingService;
-import com.izobretatel777.chat.service.KeyService;
-import com.izobretatel777.chat.service.RegistrationService;
+import com.izobretatel777.chat.dto.login.UserRequestDto;
+import com.izobretatel777.chat.service.util.EmailingService;
+import com.izobretatel777.chat.service.util.KeyService;
+import com.izobretatel777.chat.service.login.RegistrationService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,6 +35,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Value("${spring.mail.activation-page}")
     private String activationPage;
 
+    // Validation
     private boolean isValidUserData(User user) {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
@@ -44,6 +45,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     public void saveUser(UserRequestDto userRequestDto) {
+        // If user with this login exists throw exception
         if (userEntityRepository.findByLogin(userRequestDto.getLogin()) != null)
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         User user = new User();
@@ -55,8 +57,10 @@ public class RegistrationServiceImpl implements RegistrationService {
         user.setName(userRequestDto.getName());
         user.setSurname(userRequestDto.getSurname());
         user.setPhoneNumber(userRequestDto.getPhoneNumber());
+        // If data is not valid (incorrect phone number / email) format throw exception
         if (!isValidUserData(user))
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
+        // Otherwise, continue and send e-mail letter with activation link
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userEntityRepository.save(user);
         emailingService.sendEmail(fromEmail, user.getLogin(), "Welcome to :Chat! messenger!" +
@@ -66,8 +70,10 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public boolean activateUserByOtp(String otp) {
         User user = userEntityRepository.findByOtp(otp);
+        // if user with this OTP is not found return false
         if (user == null || user.isActive())
             return false;
+        // Otherwise, activate user
         user.setActive(true);
         user.setOtp(RandomStringUtils.randomNumeric(6));
         userEntityRepository.save(user);
