@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+// Contacts CRUD operations
 @Service
 @RequiredArgsConstructor
 public class ContactServiceImpl implements ContactService {

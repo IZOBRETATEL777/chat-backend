@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+// Chat CRUD operations
 @Service
 @RequiredArgsConstructor
 public class ChatServiceImpl implements ChatService {

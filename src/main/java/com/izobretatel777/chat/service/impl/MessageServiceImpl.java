@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.util.List;
 
+// Messages CRUD operations
 @Service
 @RequiredArgsConstructor
 public class MessageServiceImpl implements MessageService {

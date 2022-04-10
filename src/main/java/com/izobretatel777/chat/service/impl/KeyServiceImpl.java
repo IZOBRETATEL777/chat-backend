@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
+// Service responsible for additional crypto operations
 @Service
 @RequiredArgsConstructor
 public class KeyServiceImpl implements KeyService {

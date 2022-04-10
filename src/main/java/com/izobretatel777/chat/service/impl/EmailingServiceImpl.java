@@ -6,6 +6,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+// Sending e-mail letters
 @Service
 @RequiredArgsConstructor
 public class EmailingServiceImpl implements EmailingService {

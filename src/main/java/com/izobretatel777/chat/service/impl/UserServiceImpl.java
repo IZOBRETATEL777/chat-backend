@@ -22,6 +22,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+// User CRUD operations (without creating)
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -86,6 +87,7 @@ public class UserServiceImpl implements UserService {
             userEntityRepository.save(user);
     }
 
+    // Get user from Spring Security context
     @Override
     public User getCurrentlyLoggedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
