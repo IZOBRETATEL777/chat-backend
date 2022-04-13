@@ -60,7 +60,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER')")
     @Operation(
             summary = "Get a User",
             description = "Get a User by ID",
