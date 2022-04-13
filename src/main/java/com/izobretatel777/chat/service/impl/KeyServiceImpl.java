@@ -17,7 +17,7 @@ public class KeyServiceImpl implements KeyService {
     @Override
     public Key generateKey() {
         Key key = new Key();
-        key.setValue(RandomStringUtils.randomAlphabetic(10));
+        key.setValue(RandomStringUtils.randomAlphabetic(10).toUpperCase());
         keyRepo.save(key);
         return key;
     }
@@ -30,7 +30,7 @@ public class KeyServiceImpl implements KeyService {
     @Override
     public Key updateKeyByLogin(String login) {
         Key key = keyRepo.findByUserLogin(login);
-        key.setValue(RandomStringUtils.randomAlphabetic(10));
+        key.setValue(RandomStringUtils.randomAlphabetic(10).toUpperCase());
         keyRepo.save(key);
         return key;
     }
@@ -41,7 +41,10 @@ public class KeyServiceImpl implements KeyService {
         message = message.toUpperCase();
         for (int i = 0, j = 0; i < message.length(); i++) {
             char c = message.charAt(i);
-            if (c < 'A' || c > 'Z') continue;
+            if (c < 'A' || c > 'Z') {
+                res += c;
+                continue;
+            }
             res += (char)((c + key.getValue().charAt(j) - 2 * 'A') % 26 + 'A');
             j = ++j % key.getValue().length();
         }
@@ -54,7 +57,10 @@ public class KeyServiceImpl implements KeyService {
         message = message.toUpperCase();
         for (int i = 0, j = 0; i < message.length(); i++) {
             char c = message.charAt(i);
-            if (c < 'A' || c > 'Z') continue;
+            if (c < 'A' || c > 'Z') {
+                res += c;
+                continue;
+            }
             res += (char)((c - key.getValue().charAt(j) + 26) % 26 + 'A');
             j = ++j % key.getValue().length();
         }
