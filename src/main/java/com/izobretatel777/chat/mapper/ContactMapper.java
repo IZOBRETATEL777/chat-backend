@@ -10,6 +10,6 @@ public interface ContactMapper {
 
     @Named("toResponseDto")
     default ContactResponseDto toResponseDto(Contact source) {
-        return ContactResponseDto.builder().contactId(source.getId()).userId(source.getId()).build();
+        return ContactResponseDto.builder().contactId(source.getId()).userId(source.getUserId().getId()).build();
     }
 }
