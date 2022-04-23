@@ -7,17 +7,21 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
-// Service responsible for additional crypto operations
+// Service responsible for additional crypto operations on messages
+// Vigenere cipher is used
 @Service
 @RequiredArgsConstructor
 public class KeyServiceImpl implements KeyService {
 
     private final KeyRepo keyRepo;
+    // Using 64-bit encryption
+    private final static long ALPHABET_SIZE = Long.MAX_VALUE;
 
     @Override
     public Key generateKey() {
         Key key = new Key();
-        key.setValue(RandomStringUtils.randomAlphabetic(10).toUpperCase());
+        // Generate random string
+        key.setValue(RandomStringUtils.randomPrint(10));
         keyRepo.save(key);
         return key;
     }
@@ -30,40 +34,49 @@ public class KeyServiceImpl implements KeyService {
     @Override
     public Key updateKeyByLogin(String login) {
         Key key = keyRepo.findByUserLogin(login);
-        key.setValue(RandomStringUtils.randomAlphabetic(10).toUpperCase());
-        keyRepo.save(key);
+        keyRepo.save(generateKey());
         return key;
     }
 
+    // Encryption using Vigenere Cipher
     @Override
     public String encrypt(String message, Key key) {
-        String res = "";
-        message = message.toUpperCase();
-        for (int i = 0, j = 0; i < message.length(); i++) {
-            char c = message.charAt(i);
-            if (c < 'A' || c > 'Z') {
-                res += c;
-                continue;
+        StringBuilder encryptedMessage = new StringBuilder();
+        int keyIndex = 0;
+        //E_i = (P_i + K_i) % ALPH_LENGTH
+        for (int i = 0; i < message.length(); i++) {
+            // If at the end of key
+            if (keyIndex == key.getValue().length()) {
+                keyIndex = 0;
             }
-            res += (char)((c + key.getValue().charAt(j) - 2 * 'A') % 26 + 'A');
-            j = ++j % key.getValue().length();
+            // Getting char codes
+            long charMessage = message.charAt(i);
+            long charKey = key.getValue().charAt(keyIndex);
+            // Add to result
+            encryptedMessage.append((char) Math.floorMod((charMessage + charKey), ALPHABET_SIZE));
+            keyIndex++;
         }
-        return res;
+        return encryptedMessage.toString();
     }
 
+    // Decryption using Vigenere Cipher
     @Override
     public String decrypt(String message, Key key) {
-        String res = "";
-        message = message.toUpperCase();
-        for (int i = 0, j = 0; i < message.length(); i++) {
-            char c = message.charAt(i);
-            if (c < 'A' || c > 'Z') {
-                res += c;
-                continue;
+        StringBuilder encryptedMessage = new StringBuilder();
+        int keyIndex = 0;
+        //E_i = (P_i - K_i) % ALPH_LENGTH
+        for (int i = 0; i < message.length(); i++) {
+            // If at the end of key
+            if (keyIndex == key.getValue().length()) {
+                keyIndex = 0;
             }
-            res += (char)((c - key.getValue().charAt(j) + 26) % 26 + 'A');
-            j = ++j % key.getValue().length();
+            // Getting char codes
+            long charMessage = message.charAt(i);
+            long charKey = key.getValue().charAt(keyIndex);
+            // Add to result
+            encryptedMessage.append((char) Math.floorMod((charMessage - charKey), ALPHABET_SIZE));
+            keyIndex++;
         }
-        return res;
+        return encryptedMessage.toString();
     }
 }
