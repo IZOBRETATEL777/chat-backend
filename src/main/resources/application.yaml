@@ -23,7 +23,7 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: izobretatel7777@gmail.com
+    username: ${SPRING_MAIL_LOGIN}
     password: ${SPRING_MAIL_PASSWROD}
     properties.mail.smtp.auth: true
     properties.mail.smtp.starttls.enable: true
