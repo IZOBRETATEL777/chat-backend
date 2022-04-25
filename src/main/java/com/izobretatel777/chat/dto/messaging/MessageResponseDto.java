@@ -3,7 +3,7 @@ package com.izobretatel777.chat.dto.messaging;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
@@ -14,6 +14,6 @@ public class MessageResponseDto {
     Long authorId;
     Long chatId;
     String content;
-    Date creationTime;
+    Timestamp creationTime;
     boolean delivered;
 }

@@ -5,7 +5,6 @@ import com.izobretatel777.chat.dao.entity.Message;
 import com.izobretatel777.chat.dao.entity.User;
 import com.izobretatel777.chat.dao.repo.ChatRepo;
 import com.izobretatel777.chat.dao.repo.MessageRepo;
-import com.izobretatel777.chat.dao.repo.UserRepo;
 import com.izobretatel777.chat.dto.messaging.MessageRequestDto;
 import com.izobretatel777.chat.dto.messaging.MessageResponseDto;
 import com.izobretatel777.chat.mapper.MessageMapper;
@@ -13,11 +12,9 @@ import com.izobretatel777.chat.service.login.UserService;
 import com.izobretatel777.chat.service.util.KeyService;
 import com.izobretatel777.chat.service.messaging.MessageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 // Messages CRUD operations
@@ -53,7 +50,7 @@ public class MessageServiceImpl implements MessageService {
         if (messageRequestDto.isEncrypted())
             content = keyService.decrypt(content, keyService.getKeyByUserId(user.getId()));
         Message message = Message.builder().chat(chatRepo.getById(messageRequestDto.getChatId())).author(user)
-                .content(content).creationTime(new Date(System.currentTimeMillis())).build();
+                .content(content).creationTime(new Timestamp(System.currentTimeMillis())).build();
         return messageRepo.save(message).getId();
     }
 

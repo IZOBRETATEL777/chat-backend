@@ -4,7 +4,6 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @Table(name = "message")
@@ -28,7 +27,7 @@ public class Message {
     boolean delivered = false;
 
     @Column(name = "creation_time", nullable = false, columnDefinition = "datetime default CURRENT_TIMESTAMP")
-    Date creationTime;
+    Timestamp creationTime;
 
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
